@@ -1,10 +1,17 @@
 from django.db import models
 from django.contrib.auth.models import User
+from cloudinary.models import CloudinaryField
 
 STATUS = ((0, "Draft"), (1, "Published"))
 
 
 # Create your models here.
+"""
+stores a single blog post entry  related to :model: `auth.User`.
+
+"""
+
+
 class News(models.Model):
     title = models.CharField(max_length=200, unique=True)
     slug = models.SlugField(max_length=200, unique=True)
@@ -14,7 +21,8 @@ class News(models.Model):
     content = models.TextField()
     created_on = models.DateTimeField(auto_now_add=True)
     status = models.IntegerField(choices=STATUS, default=0)
-    excerpt = models.TextField(blank=True)
+    Summary = models.TextField(blank=True)
+    featured_image = CloudinaryField('image', default='placeholder')
 
     class Meta:
         ordering = ["-created_on"]
