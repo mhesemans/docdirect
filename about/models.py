@@ -23,3 +23,15 @@ class StaffMember(models.Model):
 
     def __str__(self):
         return f"{self.name} - {self.get_role_display()}"
+
+
+class ContactUs(models.Model):
+    name = models.CharField(max_length=200)
+    email = models.EmailField()
+    contact_number = models.CharField(max_length=20, blank=True, null=True)
+    subject = models.CharField(max_length=200)
+    message = models.TextField()
+    read = models.BooleanField(default=False)
+
+    def __str__(self):
+        return f"Contact request from {self.name}"
