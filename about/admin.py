@@ -23,8 +23,7 @@ class StaffMemberAdmin(SummernoteModelAdmin):
 
 @admin.register(ContactUs)
 class ContactUsAdmin(admin.ModelAdmin):
-    list_display = ('name', 'email', 'subject', 'read', 'contact_number')
-    list_filter = ('read',)
+    list_display = ('name', 'email', 'subject', 'read', 'responded', 'contact_number')
+    list_filter = ('read', 'responded')
     search_fields = ('name', 'email', 'subject')
     readonly_fields = ('name', 'email', 'contact_number', 'subject', 'message')
-
