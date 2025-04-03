@@ -1,24 +1,38 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "base.html" %} {% block content %}
 <div class="container py-5">
   <div class="row">
     <!-- Left-hand side nav tabs -->
     <div class="col-md-3 mb-4">
-      <div class="nav flex-column nav-pills" id="v-tabs" role="tablist" aria-orientation="vertical">
+      <div
+        class="nav flex-column nav-pills"
+        id="v-tabs"
+        role="tablist"
+        aria-orientation="vertical"
+      >
         {% for member in staff %}
-          <button class="nav-link {% if forloop.first %}active{% endif %}"
-                  id="tab-{{ member.id }}"
-                  data-bs-toggle="pill"
-                  data-bs-target="#pane-{{ member.id }}"
-                  type="button"
-                  role="tab"
-                  aria-controls="pane-{{ member.id }}"
-                  aria-selected="{% if forloop.first %}true{% else %}false{% endif %}">
-            {{ member.name }}
-          </button>
+        <button
+          class="nav-link {% if forloop.first %}active{% endif %}"
+          id="tab-{{ member.id }}"
+          data-bs-toggle="pill"
+          data-bs-target="#pane-{{ member.id }}"
+          type="button"
+          role="tab"
+          aria-controls="pane-{{ member.id }}"
+          aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+        >
+          {{ member.name }}
+        </button>
         {% endfor %}
-        <button class="nav-link" id="tab-contact" data-bs-toggle="pill" data-bs-target="#pane-contact"
-                type="button" role="tab" aria-controls="pane-contact" aria-selected="false">
+        <button
+          class="nav-link"
+          id="tab-contact"
+          data-bs-toggle="pill"
+          data-bs-target="#pane-contact"
+          type="button"
+          role="tab"
+          aria-controls="pane-contact"
+          aria-selected="false"
+        >
           Contact Us
         </button>
       </div>
@@ -28,19 +42,42 @@
     <div class="col-md-9">
       <div class="tab-content" id="v-tabs-content">
         {% for member in staff %}
-          <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="pane-{{ member.id }}" role="tabpanel"
-               aria-labelledby="tab-{{ member.id }}">
-            <h3>{{ member.name }}</h3>
-            <p><strong>{{ member.get_role_display }}</strong></p>
-            {% if member.featured_image %}
-              <img src="{{ member.featured_image.url }}" class="img-fluid mb-3 rounded" alt="{{ member.name }}">
-            {% endif %}
-            <div>{{ member.content|linebreaks }}</div>
+        <div
+          class="tab-pane fade {% if forloop.first %}show active{% endif %}"
+          id="pane-{{ member.id }}"
+          role="tabpanel"
+          aria-labelledby="tab-{{ member.id }}"
+        >
+          <h3>{{ member.name }}</h3>
+          <p><strong>{{ member.get_role_display }}</strong></p>
+
+          <div class="row align-items-start">
+            <div class="col-md-4 mb-3">
+              {% if member.featured_image %}
+              <img
+                src="{{ member.featured_image.url }}"
+                class="img-thumbnail"
+                alt="{{ member.name }}"
+                style="max-width: 100%"
+              />
+              {% endif %}
+            </div>
+            <div class="col-md-8">
+              <div class="border rounded p-3 bg-light">
+                {{ member.content|safe }}
+              </div>
+            </div>
           </div>
+        </div>
         {% endfor %}
 
         <!-- Contact tab -->
-        <div class="tab-pane fade" id="pane-contact" role="tabpanel" aria-labelledby="tab-contact">
+        <div
+          class="tab-pane fade"
+          id="pane-contact"
+          role="tabpanel"
+          aria-labelledby="tab-contact"
+        >
           <h3>Contact Us</h3>
           <p><strong>Email:</strong> contact@docdirect.ie</p>
           <p><strong>Phone:</strong> +353 21 123 4567</p>
