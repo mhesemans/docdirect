@@ -45,6 +45,8 @@ INSTALLED_APPS = [
     'django_summernote',
     'cloudinary',
     'about',
+    'crispy_forms',
+    'crispy_bootstrap5',
     'home',
     'news',
 ]
@@ -76,6 +78,9 @@ TEMPLATES = [
         },
     },
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 WSGI_APPLICATION = 'docdirect.wsgi.application'
 

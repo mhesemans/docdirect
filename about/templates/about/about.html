@@ -1,4 +1,4 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %} {% block content %} {% load crispy_forms_tags %}
 <div class="container py-5">
   <div class="row">
     <!-- Left-hand side nav tabs -->
@@ -58,7 +58,7 @@
                 src="{{ member.featured_image.url }}"
                 class="img-thumbnail"
                 alt="{{ member.name }}"
-                style="max-width: 100%"
+                style="max-width: 220px"
               />
               {% endif %}
             </div>
@@ -82,11 +82,52 @@
           <p><strong>Email:</strong> contact@docdirect.ie</p>
           <p><strong>Phone:</strong> +353 21 123 4567</p>
 
-          <!-- Form will go here later -->
-          <p class="text-muted">[Contact form coming soon]</p>
+          <hr />
+
+          <div class="card mb-4 mt-3">
+            <div class="card-body">
+              <h5>Send us a message:</h5>
+              <div class="d-flex justify-content-center">
+                <div style="max-width: 600px; width: 100%">
+                  <form
+                    method="post"
+                    id="contactForm"
+                    style="margin-top: 1.3em"
+                  >
+                    {% csrf_token %} {{ form|crispy }}
+                    <button type="submit" class="btn btn-primary btn-lg">
+                      Submit
+                    </button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </div>
 </div>
+{% endblock %}
+
+{% block extras %}
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    if (window.location.hash === "#pane-contact") {
+      const contactTab = document.querySelector('button[data-bs-target="#pane-contact"]');
+      if (contactTab) {
+        let tab = new bootstrap.Tab(contactTab);
+        tab.show();
+
+        // Wait for tab to show, then scroll up to show success message
+        setTimeout(function () {
+          const alertBox = document.getElementById("msg");
+          if (alertBox) {
+            alertBox.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }, 300); // Wait 300ms after showing tab
+      }
+    }
+  });
+</script>
 {% endblock %}
