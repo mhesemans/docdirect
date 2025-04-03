@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'cloudinary',
     'about',
+    'home',
     'news',
 ]
 
@@ -63,7 +64,7 @@ ROOT_URLCONF = 'docdirect.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
