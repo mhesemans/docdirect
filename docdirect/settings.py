@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'django_summernote',
     'cloudinary',
     'about',
+    'accounts.apps.AccountsConfig',
     'crispy_forms',
     'crispy_bootstrap5',
     'home',
@@ -67,6 +68,9 @@ ACCOUNT_SIGNUP_FIELDS = ['first_name*', 'last_name*', 'email*', 'password1*', 'p
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
+ACCOUNT_FORMS = {
+    'signup': 'accounts.forms.CustomSignupForm',
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
