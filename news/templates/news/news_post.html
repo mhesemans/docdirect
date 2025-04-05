@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{# 
+  Template: news_post.html
+
+  Displays a list of published news articles for public view.
+
+  **Context:**
+    news_list: A queryset of News instances where status=1 (published)
+
+  **Template Blocks:**
+    - content: Displays each news article in a card layout
+#}
+
+{% block content %}
+<div class="container py-5">
+  <h1 class="mb-4 text-center">Clinic News & Health Updates</h1>
+
+  {% if news_list %}
+    {% for post in news_list %}
+      <div class="card mb-4 shadow-sm">
+        <div class="card-body">
+          <h4 class="card-title">{{ post.title }}</h4>
+          <p class="card-text">
+            {{ post.content|truncatewords:50|linebreaks }}
+          </p>
+          <p class="text-muted small mb-2">
+            Posted on {{ post.publish_date|date:"F j, Y" }}
+            {% if post.tags.all %}
+              | Tags:
+              {% for tag in post.tags.all %}
+                <span class="badge bg-secondary">{{ tag.name }}</span>
+              {% endfor %}
+            {% endif %}
+          </p>
+          <!-- Placeholder for future: Read More, Edit/Delete buttons -->
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>No news articles have been posted yet.</p>
+  {% endif %}
+</div>
+{% endblock %}

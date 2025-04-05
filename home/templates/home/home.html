@@ -1,8 +1,14 @@
-{% extends "base.html" %} {% block content %}
+{% extends "base.html" %}
+
+{% block content %}
 <div class="container py-5">
-  <!-- Welcome Message -->
-  <div class="row mb-4">
-    <div class="col text-center">
+
+  <!-- 
+    Welcome Section
+    Displays a welcome message and clinic tagline.
+  -->
+  <div class="row mb-4 text-center">
+    <div class="col">
       <h1>Welcome to DocDirect</h1>
       <p class="lead">
         Your trusted local GP clinic, committed to your care and convenience.
@@ -10,7 +16,10 @@
     </div>
   </div>
 
-  <!-- Address and Map -->
+  <!-- 
+    Address and Opening Hours Section
+    Shows the clinic's address and weekly opening hours.
+  -->
   <div class="row mb-5">
     <div class="col-md-6">
       <h3>Our Address</h3>
@@ -44,29 +53,39 @@
         <dd class="col-7">Closed</dd>
       </dl>
     </div>
+
+    <!-- 
+      Google Map Section
+      Displays embedded map showing clinic location.
+    -->
     <div class="col-md-6">
       <h3>Find Us</h3>
       <div class="d-flex justify-content-center">
         <div class="ratio ratio-4x3" style="width: 100%; max-width: 500px;">
-        <iframe
-          src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1740.6239721076213!2d-8.496931211360895!3d51.90450746988252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sie!4v1743703190288!5m2!1sen!2sie"
-          loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d1740.6239721076213!2d-8.496931211360895!3d51.90450746988252!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sie!4v1743703190288!5m2!1sen!2sie"
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Latest News -->
+  <!-- 
+    Latest News Section
+    Shows the most recent published news post.
+  -->
   {% if latest_news %}
   <div class="row">
     <div class="col">
       <h3>Latest News</h3>
       <h5>{{ latest_news.title }}</h5>
-      <p>{{ latest_news.content|truncatewords:50|linebreaks }}</p>
-      <!-- Optional: link to full news article if you build that later -->
+      <p>{{ latest_news.content|safe }}</p>
+      <!-- Optional: Add a "read more" link if detailed post view is implemented -->
     </div>
   </div>
   {% endif %}
+
 </div>
 {% endblock %}
