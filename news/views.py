@@ -8,7 +8,7 @@ from .forms import NewsPostForm
 
 class NewsList(generic.ListView):
     """
-    Displays a list of published news articles.
+    Displays a list of published news articles for the homepage.
 
     **Context**
     ``news_list``: A queryset of :model:`news.News` filtered by status and ordered by creation date.
@@ -23,7 +23,7 @@ class NewsList(generic.ListView):
 
 def news_detail(request, slug):
     """
-    Displays an individual news article.
+    Displays a full individual news article.
 
     **Context**
     ``news``: An instance of :model:`news.News`.
@@ -39,6 +39,20 @@ def news_detail(request, slug):
         "news/news_detail.html",
         {"news": news},
     )
+
+
+def news_post_list(request):
+    """
+    Displays a list of all published news articles for the public-facing news page.
+
+    **Context**
+    ``news_list``: A queryset of :model:`news.News`.
+
+    **Template**
+    :template:`news/news_post.html`
+    """
+    news_list = News.objects.filter(status=1).order_by("-created_on")
+    return render(request, "news/news_post.html", {"news_list": news_list})
 
 
 def is_admin_staff(user):
@@ -72,7 +86,7 @@ def post_news(request):
             news_item.author = request.user  # Optional: track who submitted
             news_item.save()
             messages.success(request, "News post created successfully.")
-            return redirect("home")
+            return redirect("news:news_post_list")
     else:
         form = NewsPostForm()
 

@@ -1,4 +1,6 @@
-{% load static %} {% load custom_tags %}
+{% load static %}
+{% load custom_tags %}
+{% url 'home' as home_url %}
 
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -56,8 +58,19 @@
               <a
                 class="nav-link {% if request.path == home_url %}active{% endif %}"
                 href="{{ home_url }}"
-                >Home</a
               >
+                Home
+              </a>
+            </li>
+
+            <!-- News -->
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/news/articles/' %}active{% endif %}"
+                href="{% url 'news:news_post_list' %}"
+              >
+                News
+              </a>
             </li>
 
             <!-- Conditional: Show Post News Article if admin staff or superuser -->
