@@ -1,18 +1,24 @@
 from django.urls import path
 from . import views
 
-app_name = "news"
+app_name = 'news'
 
 urlpatterns = [
-    # Homepage-style news feed (only latest few articles, used on main home page)
+    # News homepage (used as home page)
     path('', views.NewsList.as_view(), name='home'),
 
-    # Public-facing news article list page
+    # Public news listing page
     path('articles/', views.news_post_list, name='news_post_list'),
 
-    # Form page to allow admin staff to submit news
+    # News submission form
     path('post/', views.post_news, name='post_news'),
 
-    # Detail view for a single article using slug in URL
+    # Edit a specific news post
+    path('edit/<slug:slug>/', views.edit_news, name='edit_news'),
+
+    # Delete a specific news post
+    path('delete/<slug:slug>/', views.delete_news, name='delete_news'),
+
+    # Individual news post detail
     path('<slug:slug>/', views.news_detail, name='news_detail'),
 ]
