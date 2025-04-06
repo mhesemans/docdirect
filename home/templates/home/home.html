@@ -80,9 +80,15 @@
   <div class="row">
     <div class="col">
       <h3>Latest News</h3>
-      <h5>{{ latest_news.title }}</h5>
-      <p>{{ latest_news.content|safe }}</p>
-      <!-- Optional: Add a "read more" link if detailed post view is implemented -->
+      <h5>
+        <a href="{% url 'news:news_detail' latest_news.slug %}" class="text-decoration-none text-dark">
+          {{ latest_news.title }}
+        </a>
+      </h5>
+      <p>{{ latest_news.content|truncatewords:50|safe }}</p>
+      <a href="{% url 'news:news_detail' latest_news.slug %}" class="btn btn-sm btn-outline-primary mt-2">
+        Read More
+      </a>
     </div>
   </div>
   {% endif %}
