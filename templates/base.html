@@ -93,6 +93,11 @@
             <!-- Auth: Logout/Login/Register Links -->
             {% if user.is_authenticated %}
             <li class="nav-item">
+              <a class="nav-link {% if request.path == '/accounts/update/' %}active{% endif %}" href="{% url 'accounts:update_profile' %}">
+                Update Profile
+              </a>
+            </li>
+            <li class="nav-item">
               <a
                 class="nav-link"
                 href="#"
