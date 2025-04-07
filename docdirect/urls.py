@@ -16,7 +16,10 @@ urlpatterns = [
 
     # Admin and auth
     path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
+    path('accounts/auth/', include('allauth.urls')),
+
+    # User profile
+    path('accounts/', include('accounts.urls')),
 
     # WYSIWYG editor
     path('summernote/', include('django_summernote.urls')),
