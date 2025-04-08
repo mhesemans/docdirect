@@ -10,12 +10,12 @@ from django.contrib.auth.models import User
 
 def is_gp(user):
     """Check if the user belongs to the GP group."""
-    return user.groups.filter(name="GP").exists()
+    return user.is_superuser or user.groups.filter(name="GP").exists()
 
 
 def is_administrative(user):
-    """Check if the user belongs to the Administrative Staff group."""
-    return user.groups.filter(name="Administrative Staff").exists()
+    """Check if the user is an admin or belongs to the Administrative Staff group."""
+    return user.is_superuser or user.groups.filter(name="Administrative Staff").exists()
 
 
 @login_required
