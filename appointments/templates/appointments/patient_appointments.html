@@ -1,39 +1,44 @@
+<!-- 
+Displays upcoming appointments for the logged-in patient.
 
-    <!-- Displays upcoming appointments for the logged-in patient.
-  
-    **Context**
-    - appointments: Queryset of future :model:`appointments.Appointment` assigned to the user
-  
-    **Template**
-    - appointments/patient_appointments.html -->
-  
-  {% extends "base.html" %}
-  {% block content %}
-  <div class="container py-5">
-    <h2 class="mb-4">My Upcoming Appointments</h2>
-  
-    {% if appointments %}
-      <div class="list-group">
-        {% for appointment in appointments %}
-          <div class="list-group-item list-group-item-action mb-3">
-            <h5 class="mb-1">
-              {{ appointment.date|date:"F j, Y" }} at {{ appointment.time|time:"H:i" }}
-            </h5>
-            <p class="mb-1">
-              With Dr. {{ appointment.gp.get_full_name }}<br>
-              Reason: {{ appointment.reason_for_visit }}
-            </p>
-            <small class="text-muted">
-              Preferred contact: {{ appointment.get_preferred_contact_display }}
-            </small>
-          </div>
-        {% endfor %}
-      </div>
-    {% else %}
-      <div class="alert alert-info">
-        You have no upcoming appointments.
-      </div>
-    {% endif %}
+**Context**
+- appointments: Queryset of future :model:`appointments.Appointment` assigned to the user
+
+**Template**
+- appointments/patient_appointments.html 
+-->
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">My Upcoming Appointments</h2>
+    <a href="{% url 'appointments:book_appointment' %}" class="btn btn-success">
+      + Book New Appointment
+    </a>
   </div>
-  {% endblock %}
-  
+
+  {% if appointments %}
+    <div class="list-group">
+      {% for appointment in appointments %}
+        <div class="list-group-item list-group-item-action mb-3">
+          <h5 class="mb-1">
+            {{ appointment.date|date:"F j, Y" }} at {{ appointment.time|time:"H:i" }}
+          </h5>
+          <p class="mb-1">
+            With Dr. {{ appointment.gp.get_full_name }}<br>
+            Reason: {{ appointment.reason_for_visit }}
+          </p>
+          <small class="text-muted">
+            Preferred contact: {{ appointment.get_preferred_contact_display }}
+          </small>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      You have no upcoming appointments.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}

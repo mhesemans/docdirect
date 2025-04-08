@@ -9,7 +9,8 @@ from django.urls import path, include
 
 urlpatterns = [
     # About page
-    path('about/', include('about.urls'), name='about'),
+    path('about/', include(('about.urls', 'about'), namespace='about')),
+
 
     # News app (includes named routes like 'post_news')
     path('news/', include(('news.urls', 'news'), namespace='news')),
@@ -25,5 +26,10 @@ urlpatterns = [
     path('summernote/', include('django_summernote.urls')),
 
     # Homepage
-    path('', include('home.urls'), name='home'),
+    path('', include(('home.urls', 'home'), namespace='home')),
+
+
+    # Appointments (with namespace)
+    path('appointments/', include(('appointments.urls', 'appointments'), namespace='appointments')),
+
 ]

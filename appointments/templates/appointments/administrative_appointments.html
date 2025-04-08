@@ -13,16 +13,32 @@ Displays all upcoming appointments for administrative staff.
 <div class="container py-5">
   <h2 class="mb-4">Manage Appointments</h2>
 
-  <div class="row mb-4">
+  <!-- Search and Filter Controls -->
+  <form method="GET" action="" class="row mb-4 g-2">
     <div class="col-md-6">
-      <input type="text" class="form-control" placeholder="Search by patient name or doctor..." disabled>
+      <input
+        type="text"
+        class="form-control"
+        name="search"
+        placeholder="Search by patient or doctor name"
+        value="{{ request.GET.search }}"
+      >
     </div>
-    <div class="col-md-6">
-      <input type="date" class="form-control" placeholder="Filter by date" disabled>
+    <div class="col-md-4">
+      <input
+        type="date"
+        class="form-control"
+        name="date"
+        value="{{ request.GET.date }}"
+      >
     </div>
-    <small class="text-muted mt-2">* Search/filter functionality not yet implemented</small>
-  </div>
+    <div class="col-md-2">
+      <button type="submit" class="btn btn-primary w-100">Filter</button>
+    </div>
+    <small class="text-muted mt-2">* Filtering not implemented yet</small>
+  </form>
 
+  <!-- Appointment List -->
   {% if appointments %}
     <div class="list-group">
       {% for appointment in appointments %}

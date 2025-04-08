@@ -1,6 +1,6 @@
 {% load static %}
 {% load custom_tags %}
-{% url 'home' as home_url %}
+{% url 'home:home' as home_url %}
 
 <!DOCTYPE html>
 <html lang="en" class="h-100">
@@ -90,6 +90,29 @@
                 {% endif %}
             {% endif %}
 
+            {% if user.is_authenticated %}
+                {% if user|has_group:"Administrative Staff" or user.is_superuser %}
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/appointments/manage/' %}active{% endif %}" href="{% url 'appointments:manage_appointments' %}">
+                    Manage Appointments
+                  </a>
+                </li>
+                {% elif user|has_group:"GP" %}
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/appointments/gp-appointments/' %}active{% endif %}" href="{% url 'appointments:gp_appointments' %}">
+                    My Appointments
+                  </a>
+                </li>
+                {% else %}
+                <li class="nav-item">
+                  <a class="nav-link {% if request.path == '/appointments/my-appointments/' %}active{% endif %}" href="{% url 'appointments:patient_appointments' %}">
+                    My Appointments
+                  </a>
+                </li>
+                {% endif %}
+            {% endif %}
+
+
             <!-- Auth: Logout/Login/Register Links -->
             {% if user.is_authenticated %}
             <li class="nav-item">
@@ -125,7 +148,7 @@
             <li class="nav-item">
               <a
                 class="nav-link {% if request.path == '/about/' %}active{% endif %}"
-                href="{% url 'about' %}"
+                href="{% url 'about:about' %}"
               >
                 About
               </a>

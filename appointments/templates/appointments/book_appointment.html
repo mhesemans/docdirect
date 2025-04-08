@@ -1,0 +1,83 @@
+<!-- 
+Form for patients to book a new appointment.
+
+**Context**
+- form: Instance of AppointmentForm
+- available_slots: List of available time objects
+- selected_date: Selected date as string (YYYY-MM-DD)
+- selected_gp_id: Selected GP's ID (as string)
+- gps: Queryset of GPs (User objects)
+
+**Template**
+- appointments/book_appointment.html
+-->
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Book a New Appointment</h2>
+
+  <!-- GP & Date Selection Form -->
+  <form method="get" class="row g-3 mb-4">
+    <div class="col-md-6">
+      <label for="gp" class="form-label">Choose a GP:</label>
+      <select id="gp" name="gp" class="form-select" required>
+        <option value="" disabled {% if not selected_gp_id %}selected{% endif %}>-- Select a GP --</option>
+        {% for gp in gps %}
+          <option value="{{ gp.id }}" {% if gp.id|stringformat:"s" == selected_gp_id %}selected{% endif %}>
+            Dr. {{ gp.get_full_name }}
+          </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label for="date" class="form-label">Choose a date:</label>
+      <input
+        type="date"
+        id="date"
+        name="date"
+        class="form-control"
+        value="{{ selected_date }}"
+        required
+        min="{{ today }}"
+      />
+    </div>
+
+    <div class="col-12">
+      <button type="submit" class="btn btn-primary">Check Availability</button>
+    </div>
+  </form>
+
+  <!-- Available Time Slots -->
+  {% if selected_gp_id and selected_date %}
+    <h5 class="mt-4">Available Time Slots for {{ selected_date }}</h5>
+    {% if available_slots %}
+      <form method="post">
+        {% csrf_token %}
+        <input type="hidden" name="date" value="{{ selected_date }}" />
+        <input type="hidden" name="gp" value="{{ selected_gp_id }}" />
+
+        <div class="mb-3">
+          <label for="time" class="form-label">Select a time:</label>
+          <select name="time" id="time" class="form-select" required>
+            {% for slot in available_slots %}
+              <option value="{{ slot|time:'H:i' }}">{{ slot|time:"H:i" }}</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {{ form.reason_for_visit.label_tag }}
+        {{ form.reason_for_visit }}
+
+        {{ form.preferred_contact.label_tag }}
+        {{ form.preferred_contact }}
+
+        <button type="submit" class="btn btn-success mt-3">Book Appointment</button>
+      </form>
+    {% else %}
+      <p class="text-muted">No available slots for this day.</p>
+    {% endif %}
+  {% endif %}
+</div>
+{% endblock %}
