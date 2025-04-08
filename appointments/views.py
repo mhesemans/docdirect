@@ -125,8 +125,6 @@ def book_appointment(request):
     **Template**
     - appointments/book_appointment.html
     """
-    from django.utils.timezone import now
-
     form = AppointmentForm()
     gps = User.objects.filter(groups__name="GP")
     selected_gp_id = request.GET.get("gp")
@@ -134,23 +132,19 @@ def book_appointment(request):
     available_slots = []
     today = date.today()
 
-    # If GP and date are selected, calculate available time slots
     if selected_gp_id and selected_date:
         try:
             selected_gp = User.objects.get(id=selected_gp_id)
             selected_day = datetime.strptime(selected_date, "%Y-%m-%d").date()
             is_thursday = selected_day.weekday() == 3
 
-            # Set time range
             start_time = time(8, 0)
             end_time = time(16, 0) if is_thursday else time(19, 0)
             slot = make_aware(datetime.combine(selected_day, start_time))
             now_plus_1h = now() + timedelta(hours=1)
 
             while slot.time() < end_time:
-                # Skip lunch hour
                 if not time(13, 0) <= slot.time() < time(14, 0):
-                    # Ensure the slot is in the future by at least 1 hour
                     if slot > now_plus_1h:
                         slot_taken = Appointment.objects.filter(
                             date=selected_day, time=slot.time(), gp=selected_gp
@@ -162,7 +156,6 @@ def book_appointment(request):
         except (ValueError, User.DoesNotExist):
             messages.error(request, "Invalid GP or date selected.")
 
-    # If the form is submitted via POST
     if request.method == "POST":
         form = AppointmentForm(request.POST)
         if form.is_valid():
@@ -209,4 +202,31 @@ def edit_appointment(request, appointment_id):
     return render(request, "appointments/edit_appointment.html", {
         "form": form,
         "appointment": appointment
+    })
+
+
+@login_required
+@user_passes_test(is_gp)
+def appointment_detail_for_gp(request, appointment_id):
+    """
+    Displays details of a specific appointment assigned to the logged-in GP,
+    along with a list of past appointments for the same patient.
+
+    **Context**
+    - appointment: The current appointment
+    - past_appointments: Previous completed appointments for the same patient
+
+    **Template**
+    - appointments/gp_appointment_detail.html
+    """
+    appointment = get_object_or_404(Appointment, id=appointment_id, gp=request.user)
+
+    past_appointments = Appointment.objects.filter(
+        patient=appointment.patient,
+        date__lt=appointment.date
+    ).exclude(id=appointment.id).order_by('-date', '-time')
+
+    return render(request, "appointments/gp_appointment_detail.html", {
+        "appointment": appointment,
+        "past_appointments": past_appointments
     })

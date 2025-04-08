@@ -52,4 +52,11 @@ urlpatterns = [
         views.edit_appointment,
         name='edit_appointment'
     ),
+
+    # Detail view for a GP to see an appointment and past appointments
+    path(
+        'gp-appointments/<int:appointment_id>/',
+        views.appointment_detail_for_gp,
+        name='appointment_detail_for_gp'
+    ),
 ]

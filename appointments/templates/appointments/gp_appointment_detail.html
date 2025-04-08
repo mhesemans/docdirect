@@ -1,0 +1,73 @@
+<!--
+Displays a detailed view of a specific appointment for the GP,
+including a form to update notes and mark the appointment as completed,
+plus a list of the patient's past appointments.
+
+**Context**
+- appointment: The current :model:`appointments.Appointment`
+- past_appointments: Queryset of past appointments for the same patient
+
+**Template**
+- appointments/gp_appointment_detail.html
+-->
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Appointment Details</h2>
+
+  <form method="post" class="card shadow-sm mb-5 p-4">
+    {% csrf_token %}
+    <h5 class="mb-3">
+      {{ appointment.date|date:"F j, Y" }} at {{ appointment.time|time:"H:i" }}
+    </h5>
+    <p>
+      <strong>Patient:</strong> {{ appointment.patient.get_full_name }}<br>
+      <strong>Doctor:</strong> Dr. {{ appointment.gp.get_full_name }}<br>
+      <strong>Reason for Visit:</strong> {{ appointment.reason_for_visit }}<br>
+      <strong>Preferred Contact:</strong> {{ appointment.get_preferred_contact_display }}
+    </p>
+
+    <div class="mb-3">
+      <label for="notes" class="form-label">Notes</label>
+      <textarea
+        name="notes"
+        id="notes"
+        class="form-control"
+        rows="4"
+      >{{ appointment.notes }}</textarea>
+    </div>
+
+    <div class="form-check mb-3">
+      <input
+        class="form-check-input"
+        type="checkbox"
+        name="is_completed"
+        id="is_completed"
+        {% if appointment.is_completed %}checked{% endif %}
+      >
+      <label class="form-check-label" for="is_completed">
+        Mark as completed
+      </label>
+    </div>
+
+    <button type="submit" class="btn btn-success">Save Changes</button>
+  </form>
+
+  <h4>Past Appointments with {{ appointment.patient.get_full_name }}</h4>
+  {% if past_appointments %}
+    <ul class="list-group">
+      {% for past in past_appointments %}
+        <li class="list-group-item">
+          {{ past.date|date:"F j, Y" }} at {{ past.time|time:"H:i" }}
+          {% if past.notes %}
+            <br><strong>Notes:</strong> {{ past.notes|truncatewords:30 }}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p class="text-muted">No previous appointments found.</p>
+  {% endif %}
+</div>
+{% endblock %}
