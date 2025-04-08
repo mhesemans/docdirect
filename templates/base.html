@@ -112,6 +112,15 @@
                 {% endif %}
             {% endif %}
 
+            <!-- About Page -->
+            <li class="nav-item">
+              <a
+                class="nav-link {% if request.path == '/about/' %}active{% endif %}"
+                href="{% url 'about:about' %}"
+              >
+                About
+              </a>
+            </li>
 
             <!-- Auth: Logout/Login/Register Links -->
             {% if user.is_authenticated %}
@@ -143,16 +152,6 @@
               >
             </li>
             {% endif %}
-
-            <!-- About Page -->
-            <li class="nav-item">
-              <a
-                class="nav-link {% if request.path == '/about/' %}active{% endif %}"
-                href="{% url 'about:about' %}"
-              >
-                About
-              </a>
-            </li>
           </ul>
         </div>
       </div>

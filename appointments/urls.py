@@ -45,4 +45,11 @@ urlpatterns = [
         views.mark_completed,
         name='mark_completed'
     ),
+
+    # Edit an appointment (admin staff only)
+    path(
+        'edit/<int:appointment_id>/',
+        views.edit_appointment,
+        name='edit_appointment'
+    ),
 ]

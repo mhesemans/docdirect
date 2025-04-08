@@ -54,6 +54,11 @@ Displays all upcoming appointments for administrative staff.
           {% if appointment.notes %}
           <p><strong>Notes:</strong> {{ appointment.notes }}</p>
           {% endif %}
+          <div class="d-flex justify-content-end mt-3">
+            <a href="{% url 'appointments:edit_appointment' appointment.id %}" class="btn btn-sm btn-outline-primary">
+              Edit
+            </a>
+          </div>
           <small class="text-muted">
             Preferred contact: {{ appointment.get_preferred_contact_display }}
             {% if appointment.is_completed %} | <span class="text-success">Completed</span>{% endif %}
