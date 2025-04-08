@@ -1,0 +1,166 @@
+/* -------------------------------------------------------
+   General Styles
+--------------------------------------------------------- */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Lato', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background-color: #ffffff;
+    color: #333333;
+    line-height: 1.6;
+    padding: 20px;
+}
+
+/* Class for banner image on homepage */
+
+.homepage-banner {
+    width: 100%;
+    height: 33vh;
+    object-fit: cover;
+    display: block;
+}
+
+/* -------------------------------------------------------
+   Navbar: Custom Overrides for Healthcare Theme
+--------------------------------------------------------- */
+
+.custom-nav {
+    background-color: #b2dfdb; /* Light green tone */
+    padding: 10px 0;
+}
+
+.custom-nav .navbar-brand,
+.custom-nav .nav-link {
+    color: #004d40; /* Dark teal for contrast */
+    font-weight: bold;
+}
+
+.custom-nav .nav-link:hover,
+.custom-nav .nav-link:focus {
+    text-decoration: underline;
+    outline: 2px solid #81c784;
+}
+
+/* -------------------------------------------------------
+   Main Content & Layout
+--------------------------------------------------------- */
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Optionally style the main content block */
+.main-content {
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 5px;
+}
+
+/* -------------------------------------------------------
+   Footer: Custom Styling
+--------------------------------------------------------- */
+
+.custom-footer {
+    background-color: #e0f7e9; /* Light green tone matching header */
+    color: #004d40; /* Dark teal text */
+    padding: 15px 0;
+    border-top: 2px solid #b2dfdb;
+}
+
+/* -------------------------------------------------------
+   Forms & Buttons
+--------------------------------------------------------- */
+
+input[type="text"],
+input[type="email"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    font-size: 1rem;
+}
+
+label {
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+button,
+input[type="submit"] {
+    background-color: #a5d6a7;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover,
+input[type="submit"]:hover,
+button:focus,
+input[type="submit"]:focus {
+    background-color: #81c784;
+    outline: 2px solid #81c784;
+}
+
+/* -------------------------------------------------------
+   Links & Interactions
+--------------------------------------------------------- */
+
+a {
+    color: #004d40;
+    text-decoration: none;
+}
+
+a:hover,
+a:focus {
+    text-decoration: underline;
+    outline: 2px solid #81c784;
+}
+
+/* -------------------------------------------------------
+   Accessibility Focus Styles
+--------------------------------------------------------- */
+
+a:focus,
+button:focus,
+input:focus,
+textarea:focus,
+select:focus {
+    outline: 3px solid #81c784;
+    outline-offset: 2px;
+}
+
+/* -------------------------------------------------------
+   Utility Classes
+--------------------------------------------------------- */
+
+.mt-1 { margin-top: 1rem; }
+.mb-1 { margin-bottom: 1rem; }
+.p-1  { padding: 1rem; }
+
+/* -------------------------------------------------------
+   Responsive Adjustments
+--------------------------------------------------------- */
+
+@media (max-width: 768px) {
+    .custom-nav,
+    .custom-footer {
+        padding: 15px 0;
+    }
+    .custom-nav .nav-link {
+        font-size: 0.9rem;
+    }
+}

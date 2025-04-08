@@ -1,12 +1,10 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block content %}
 <div class="container py-5">
 
-  <!-- 
-    Welcome Section
-    Displays a welcome message and clinic tagline.
-  -->
+  <!-- Welcome Section -->
   <div class="row mb-4 text-center">
     <div class="col">
       <h1>Welcome to DocDirect</h1>
@@ -16,10 +14,18 @@
     </div>
   </div>
 
-  <!-- 
-    Address and Opening Hours Section
-    Shows the clinic's address and weekly opening hours.
-  -->
+  <!-- Banner Image Section -->
+  <div class="row mb-5">
+    <div class="col">
+      <img 
+        src="{% static 'images/HomepageBanner.webp' %}" 
+        alt="Healthcare Banner" 
+        class="img-fluid homepage-banner"
+      />
+    </div>
+  </div>
+
+  <!-- Address and Opening Hours Section -->
   <div class="row mb-5">
     <div class="col-md-6">
       <h3>Our Address</h3>
@@ -54,10 +60,7 @@
       </dl>
     </div>
 
-    <!-- 
-      Google Map Section
-      Displays embedded map showing clinic location.
-    -->
+    <!-- Google Map Section -->
     <div class="col-md-6">
       <h3>Find Us</h3>
       <div class="d-flex justify-content-center">
@@ -72,16 +75,16 @@
     </div>
   </div>
 
-  <!-- 
-    Latest News Section
-    Shows the most recent published news post.
-  -->
+  <!-- Latest News Section -->
   {% if latest_news %}
   <div class="row">
     <div class="col">
       <h3>Latest News</h3>
       <h5>
-        <a href="{% url 'news:news_detail' latest_news.slug %}" class="text-decoration-none text-dark">
+        <a 
+          href="{% url 'news:news_detail' latest_news.slug %}" 
+          class="text-decoration-none text-dark"
+        >
           {{ latest_news.title }}
         </a>
       </h5>

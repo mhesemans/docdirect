@@ -11,16 +11,15 @@ urlpatterns = [
     # About page
     path('about/', include(('about.urls', 'about'), namespace='about')),
 
-
     # News app (includes named routes like 'post_news')
     path('news/', include(('news.urls', 'news'), namespace='news')),
 
     # Admin and auth
     path('admin/', admin.site.urls),
-    path('accounts/auth/', include('allauth.urls')),
+    path('accounts/', include('allauth.urls')),
 
     # User profile
-    path('accounts/', include('accounts.urls')),
+    path('accounts/profile', include('accounts.urls')),
 
     # WYSIWYG editor
     path('summernote/', include('django_summernote.urls')),
