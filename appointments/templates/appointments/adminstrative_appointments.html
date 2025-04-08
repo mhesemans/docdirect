@@ -1,0 +1,54 @@
+<!--
+Displays all upcoming appointments for administrative staff.
+
+**Context**
+- appointments: Queryset of upcoming :model:`appointments.Appointment`
+
+**Template**
+- appointments/administrative_appointments.html
+-->
+
+{% extends "base.html" %}
+{% block content %}
+<div class="container py-5">
+  <h2 class="mb-4">Manage Appointments</h2>
+
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <input type="text" class="form-control" placeholder="Search by patient name or doctor..." disabled>
+    </div>
+    <div class="col-md-6">
+      <input type="date" class="form-control" placeholder="Filter by date" disabled>
+    </div>
+    <small class="text-muted mt-2">* Search/filter functionality not yet implemented</small>
+  </div>
+
+  {% if appointments %}
+    <div class="list-group">
+      {% for appointment in appointments %}
+        <div class="list-group-item mb-3">
+          <h5 class="mb-1">
+            {{ appointment.date|date:"F j, Y" }} at {{ appointment.time|time:"H:i" }}
+          </h5>
+          <p class="mb-1">
+            Patient: {{ appointment.patient.get_full_name }}<br>
+            Doctor: Dr. {{ appointment.gp.get_full_name }}<br>
+            Reason: {{ appointment.reason_for_visit }}
+          </p>
+          {% if appointment.notes %}
+          <p><strong>Notes:</strong> {{ appointment.notes }}</p>
+          {% endif %}
+          <small class="text-muted">
+            Preferred contact: {{ appointment.get_preferred_contact_display }}
+            {% if appointment.is_completed %} | <span class="text-success">Completed</span>{% endif %}
+          </small>
+        </div>
+      {% endfor %}
+    </div>
+  {% else %}
+    <div class="alert alert-info">
+      No upcoming appointments found.
+    </div>
+  {% endif %}
+</div>
+{% endblock %}
