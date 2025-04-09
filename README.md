@@ -251,7 +251,12 @@ The user stories were used to ensure all features were tested for intended purpo
 
 [HTML W3C Validator](https://validator.w3.org) was used to validate all html templates through direct input
 
+While errors appear, they are all caused by the article preview getting cut off, crispy forms was used to create these articles.
+![html error on article preview](documentation/readme/htmlerror.png)
 
+An error is also shown for the appointments view for administrative staff, however this is simply due to the search filter requiring the response to appear on the same page, as such the action value is left blank.
+
+![html error on appointment list](documentation/readme/htmlerror2.png)
 
 ## Forms
 
