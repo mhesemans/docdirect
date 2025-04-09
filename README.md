@@ -232,6 +232,8 @@ The user stories were used to ensure all features were tested for intended purpo
 - Cloudinary
 - GitHub & Git
 - Heroku
+- ChatGPT
+- VSCode
 
 ---
 
@@ -305,5 +307,6 @@ Other html templates show no errors
 - [Coolors.co](https://coolors.co) for colour palette generation.
 - [websitemockupgenerator] (https://websitemockupgenerator.com/) for mockup image of app
 - [Django Documentation](https://docs.djangoproject.com/en/5.2/) for research
+- Chatgpt for article content and image generation
 
 Developed by Micha Hesemans.
