@@ -251,12 +251,28 @@ The user stories were used to ensure all features were tested for intended purpo
 
 [HTML W3C Validator](https://validator.w3.org) was used to validate all html templates through direct input
 
+Direct input was obtained from getting page source output after visiting the various pages in the app as most pages are authentication dependant.
+
 While errors appear, they are all caused by the article preview getting cut off, crispy forms was used to create these articles.
 ![html error on article preview](documentation/readme/htmlerror.png)
 
 An error is also shown for the appointments view for administrative staff, however this is simply due to the search filter requiring the response to appear on the same page, as such the action value is left blank.
 
 ![html error on appointment list](documentation/readme/htmlerror2.png)
+
+Other html templates show no errors
+
+![html error free](documentation/readme/htmlnoerror.png)
+
+### CSS
+
+[CSS Jigsaw Validator](https://jigsaw.w3.org/css-validator) was used to validate the style.css through direct input, this returned with no errors.
+
+![CSS error free](documentation/readme/cssnoerror.png)
+
+### Python
+
+[CI Python Linter](https://pep8ci.herokuapp.com) was used throughout the development process, and apart from "line too long" instances, no errors remain
 
 ## Forms
 
@@ -288,5 +304,6 @@ An error is also shown for the appointments view for administrative staff, howev
 - Stack Overflow for troubleshooting advanced Django logic.
 - [Coolors.co](https://coolors.co) for colour palette generation.
 - [websitemockupgenerator] (https://websitemockupgenerator.com/) for mockup image of app
+- [Django Documentation](https://docs.djangoproject.com/en/5.2/) for research
 
 Developed by Micha Hesemans.

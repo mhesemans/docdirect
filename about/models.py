@@ -31,7 +31,7 @@ class ContactUs(models.Model):
     contact_number = models.CharField(max_length=20, blank=True, null=True)
     subject = models.CharField(max_length=200)
     message = models.TextField()
-    read = models.BooleanField(default=False)    
+    read = models.BooleanField(default=False)
     responded = models.BooleanField(default=False)
 
     def __str__(self):
